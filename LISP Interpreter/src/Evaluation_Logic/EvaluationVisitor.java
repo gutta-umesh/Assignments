@@ -8,7 +8,6 @@ public class EvaluationVisitor implements Visitor<Integer> {
         return node.value;
     }
     public Integer visit(SymbolNode node) {
-        // 🔹 Look up variable value from global environment
         return env.lookup(node.value);
     }
     public Integer visit(ListNode node) {
