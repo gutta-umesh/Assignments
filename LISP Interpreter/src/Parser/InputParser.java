@@ -15,13 +15,13 @@ public class InputParser {
         StringBuilder current = new StringBuilder();
         for (char c : input.toCharArray()) {
             if (c == '(' || c == ')') {
-                if (current.length() > 0) {
+                if (current.length()>0) {
                     tokens.add(current.toString());
                     current.setLength(0);
                 }
                 tokens.add(String.valueOf(c));
             } else if (Character.isWhitespace(c)) {
-                if (current.length() > 0) {
+                if (current.length()>0) {
                     tokens.add(current.toString());
                     current.setLength(0);
                 }
@@ -29,7 +29,7 @@ public class InputParser {
                 current.append(c);
             }
         }
-        if (current.length() > 0) {
+        if (current.length()>0) {
             tokens.add(current.toString());
         }
     }
@@ -38,7 +38,7 @@ public class InputParser {
         String token = tokens.get(index++);
 
         if (token.equals("(")) {
-            List<Node> elements = new ArrayList<>();
+            List<Node> elements =new ArrayList<>();
 
             while (!tokens.get(index).equals(")")) {
                 elements.add(parseExpression());

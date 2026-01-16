@@ -8,7 +8,6 @@ public class EvaluationVisitor implements Visitor<Integer> {
         return node.value;
     }
     public Integer visit(SymbolNode node) {
-        // 🔹 Look up variable value from global environment
         return env.lookup(node.value);
     }
     public Integer visit(ListNode node) {
@@ -26,6 +25,46 @@ public class EvaluationVisitor implements Visitor<Integer> {
             int value = elements.get(2).accept(this);
             env.define(variableNode.value, value);
             return value;
+        }
+        if(operator.equals("<")){
+            int val1=elements.get(1).accept(this);
+            int val2=elements.get(2).accept(this);
+            if(val1<val2){
+                return 1;
+            }
+            else{
+                return 0;
+            }
+        }
+        if(operator.equals("<=")){
+            int val1=elements.get(1).accept(this);
+            int val2=elements.get(2).accept(this);
+            if(val1<=val2){
+                return 1;
+            }
+            else{
+                return 0;
+            }
+        }
+        if(operator.equals(">")){
+            int val1=elements.get(1).accept(this);
+            int val2=elements.get(2).accept(this);
+            if(val1>val2){
+                return 1;
+            }
+            else{
+                return 0;
+            }
+        }
+        if(operator.equals(">=")){
+            int val1=elements.get(1).accept(this);
+            int val2=elements.get(2).accept(this);
+            if(val1>=val2){
+                return 1;
+            }
+            else{
+                return 0;
+            }
         }
         if (elements.size() < 3) {
             throw new RuntimeException("Arithmetic operation requires at least 2 operands");
