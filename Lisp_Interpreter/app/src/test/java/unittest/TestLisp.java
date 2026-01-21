@@ -57,6 +57,13 @@ public class TestLisp {
     }
 
     @Test
+    void testDEfineWithoutVar(){
+        String inp="(define 20)";
+        Node ast=parser.parseInput(inp);
+        assertThrows(IllegalArgumentException.class,()->{ast.accept(evaluator);});
+    }
+
+    @Test
     void testNestedExp(){
         String inp="(+ (- 20 10) (* 10 1))";
         Node ast=parser.parseInput(inp);
