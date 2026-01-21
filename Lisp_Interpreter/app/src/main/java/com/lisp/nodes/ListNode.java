@@ -11,7 +11,7 @@ public class ListNode implements Node {
         this.value = value;
     }
 
-    public <T> T accept(Visitor<T> V) {
-        return V.visit(this);
+    public <T> int accept(Visitor<T> V) {
+        return (int) V.visit(this);
     }
 }

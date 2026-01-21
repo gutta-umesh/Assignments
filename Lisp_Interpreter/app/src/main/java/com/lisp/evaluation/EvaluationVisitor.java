@@ -24,68 +24,13 @@ public class EvaluationVisitor implements Visitor<Integer> {
         SymbolNode operatorNode = (SymbolNode) elements.get(0);
         String operator = operatorNode.value;
         if (operator.equals("define")) {
-            return evaluateDefine(elements);
+            return DefineVar.compute(elements,this);
         }
         if (elements.size() < 3) {
             throw new RuntimeException("Arithmetic operation requires at least 2 operands");
         }
-        return evaluate(operator, elements);
+        return ComputeArithmetic.compute(operator, elements,this);
     }
 
-    public Integer evaluateDefine(List<Node> elements) {
-        if (elements.size() != 3) {
-            throw new RuntimeException("Define requires three arguments");
-        }
-        SymbolNode var = (SymbolNode) elements.get(1);
-        int value = elements.get(2).accept(this);
-        env.define(var.value, value);
-        return value;
-    }
-
-    Integer evaluate(String opr, List<Node> elements) {
-        if (elements.size() < 3) {
-            throw new RuntimeException("Arithmetic operation requires at least 2 operands");
-        }
-        int result = elements.get(1).accept(this);
-        for (int i = 2; i < elements.size(); i++) {
-            int value = elements.get(i).accept(this);
-            switch (opr) {
-                case "+":
-                    result += value;
-                    break;
-                case "-":
-                    result -= value;
-                    break;
-                case "*":
-                    result *= value;
-                    break;
-                case "/":
-                    result /= value;
-                    break;
-                case "%":
-                    result %= value;
-                    break;
-                case ">":
-                    if (result > value) result = 1;
-                    else result = 0;
-                    break;
-                case ">=":
-                    if (result >= value) result = 1;
-                    else result = 0;
-                    break;
-                case "<":
-                    if (result < value) result = 1;
-                    else result = 0;
-                    break;
-                case "<=":
-                    if (result <= value) result = 1;
-                    else result = 0;
-                    break;
-                default:
-                    throw new RuntimeException("Unknown operator" + opr);
-            }
-        }
-        return result;
-    }
 }
 
